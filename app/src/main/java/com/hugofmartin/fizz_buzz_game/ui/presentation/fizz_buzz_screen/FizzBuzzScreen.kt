@@ -15,8 +15,13 @@ import androidx.navigation.NavController
 @Composable
 fun FizzBuzzScreen(
     viewModel: FizzBuzzViewModel,
-    navController: NavController
-) {
+    navController: NavController,
+    firstNumber: Int?,
+    secondNumber: Int?,
+    firstText: String?,
+    secondText: String?,
+    limit: Int?,
+    ) {
     val state = viewModel.state
 
     Column(modifier = Modifier.fillMaxSize()) {

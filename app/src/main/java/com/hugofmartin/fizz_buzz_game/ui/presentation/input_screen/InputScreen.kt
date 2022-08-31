@@ -13,6 +13,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.hugofmartin.fizz_buzz_game.ui.presentation.util.Screen
 
 @Composable
 fun InputScreen(
@@ -91,7 +92,17 @@ fun InputScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 16.dp),
-                    onClick = { /*TODO*/ }
+                    // Navigate to the FizzBuzz screen and cast value to int, we sure they can't be null or ""
+                    onClick = {
+                        navController.navigate(
+                            Screen.FizzBuzzScreen.route +
+                                    "?firstNumber=${state.value.firstNumber.toInt()}&" +
+                                    "secondNumber=${state.value.secondNumber.toInt()}&" +
+                                    "firstText=${state.value.firstText}&" +
+                                    "secondText=${state.value.secondText}&" +
+                                    "limit=${state.value.limit.toInt()}",
+                        )
+                    }
                 ) {
                     Text(text = "Valider")
                 }

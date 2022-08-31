@@ -42,7 +42,12 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(
-                            route = Screen.FizzBuzzScreen.route,
+                            route = Screen.FizzBuzzScreen.route +
+                                    "?firstNumber={firstNumberInput}&" +
+                                    "secondNumber={secondNumberInput}&" +
+                                    "firstText={firstTextInput}&" +
+                                    "secondText={secondTextInput}&" +
+                                    "limit={limitInput}",
                             arguments = listOf(
                                 navArgument(
                                     name = "firstNumberInput"
@@ -75,10 +80,15 @@ class MainActivity : ComponentActivity() {
                                     defaultValue = -1
                                 }
                             )
-                        ) {
+                        ) { backStackEntry ->
                             FizzBuzzScreen(
                                 FizzBuzzViewModel(FizzBuzz()),
-                                navController = navController
+                                navController = navController,
+                                firstNumber = backStackEntry.arguments?.getInt("firstNumberInput"),
+                                secondNumber = backStackEntry.arguments?.getInt("secondNumberInput"),
+                                firstText = backStackEntry.arguments?.getString("firstTextInput"),
+                                secondText = backStackEntry.arguments?.getString("secondTextInput"),
+                                limit = backStackEntry.arguments?.getInt("limitInput")
                             )
                         }
                     }
