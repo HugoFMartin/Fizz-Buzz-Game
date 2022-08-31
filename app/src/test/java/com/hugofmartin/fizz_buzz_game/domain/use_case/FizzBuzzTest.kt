@@ -3,11 +3,18 @@ package com.hugofmartin.fizz_buzz_game.domain.use_case
 import androidx.compose.runtime.mutableStateListOf
 import junit.framework.TestCase
 import org.junit.Test
+import org.junit.Before
 import java.util.*
 
 class FizzBuzzTest : TestCase(){
 
-    private val fizzBuzz = FizzBuzz()
+    private lateinit var fizzBuzz: FizzBuzz
+
+    @Before
+    override fun setUp() {
+        fizzBuzz = FizzBuzz()
+    }
+
     @Test
     fun `test correct FizzBuzz`() {
         val expectedRes = ArrayList(mutableStateListOf(

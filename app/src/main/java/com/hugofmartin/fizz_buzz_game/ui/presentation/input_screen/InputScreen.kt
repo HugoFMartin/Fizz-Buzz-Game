@@ -128,7 +128,7 @@ fun FormInput(
         color = MaterialTheme.colors.primary
     )
     TextField(
-        modifier = modifier.padding(top = 4.dp,bottom = 8.dp),
+        modifier = modifier.padding(top = 2.dp,bottom = 8.dp),
         value = value,
         onValueChange = onValueChange,
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType)
