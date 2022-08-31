@@ -42,18 +42,18 @@ fun InputScreen(
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 FormInput(
-                    value = state.value.firstNumber.toString(),
+                    value = state.value.firstNumber,
                     onValueChange = {
-                        viewModel.onEvent(InputEvent.OnFirstNumberChanged(it.toInt()))
+                        viewModel.onEvent(InputEvent.OnFirstNumberChanged(it))
                     },
                     title = "1er chiffre",
                     keyboardType = KeyboardType.Number,
                     modifier = Modifier
                 )
                 FormInput(
-                    value = state.value.secondNumber.toString(),
+                    value = state.value.secondNumber,
                     onValueChange = {
-                        viewModel.onEvent(InputEvent.OnSecondNumberChanged(it.toInt()))
+                        viewModel.onEvent(InputEvent.OnSecondNumberChanged(it))
                     },
                     title = "2ème chiffre",
                     keyboardType = KeyboardType.Number,
@@ -78,9 +78,9 @@ fun InputScreen(
                     modifier = Modifier
                 )
                 FormInput(
-                    value = state.value.limit.toString(),
+                    value = state.value.limit,
                     onValueChange = {
-                        viewModel.onEvent(InputEvent.OnLimitChanged(it.toInt()))
+                        viewModel.onEvent(InputEvent.OnLimitChanged(it))
                     },
                     title = "Limite",
                     keyboardType = KeyboardType.Number,
