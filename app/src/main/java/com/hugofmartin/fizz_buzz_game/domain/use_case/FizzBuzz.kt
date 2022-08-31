@@ -1,4 +1,4 @@
-package com.hugofmartin.fizz_buzz_game.use_case
+package com.hugofmartin.fizz_buzz_game.domain.use_case
 
 import java.util.*
 

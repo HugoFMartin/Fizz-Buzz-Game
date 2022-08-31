@@ -1,4 +1,4 @@
-package com.hugofmartin.fizz_buzz_game.use_case
+package com.hugofmartin.fizz_buzz_game.domain.use_case
 
 import androidx.compose.runtime.mutableStateListOf
 import junit.framework.TestCase

@@ -25,7 +25,7 @@ fun FizzBuzzScreen(
             text = "Résultat",
             color = MaterialTheme.colors.primary,
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.h2
+            style = MaterialTheme.typography.h3
         )
         LazyColumn() {
             items(
