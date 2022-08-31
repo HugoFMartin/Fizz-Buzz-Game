@@ -24,6 +24,14 @@ fun FizzBuzzScreen(
     ) {
     val state = viewModel.state
 
+    viewModel.executeFizzBuzz(
+        firstNumber!!,
+        secondNumber!!,
+        firstText!!,
+        secondText!!,
+        limit!!
+    )
+
     Column(modifier = Modifier.fillMaxSize()) {
         Text(
             modifier= Modifier

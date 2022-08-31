@@ -6,15 +6,15 @@ import androidx.lifecycle.ViewModel
 import com.hugofmartin.fizz_buzz_game.domain.use_case.FizzBuzz
 
 class FizzBuzzViewModel(
-    fizzBuzz: FizzBuzz = FizzBuzz()
+    private val fizzBuzz: FizzBuzz = FizzBuzz()
 ): ViewModel() {
 
     private val _state = mutableStateOf(FizzBuzzState())
     val state: State<FizzBuzzState> = _state
 
-    init {
+    fun executeFizzBuzz(firstNumber: Int, secondNumber: Int, firstText: String, secondText: String, limit: Int) {
         _state.value = state.value.copy(
-            list = fizzBuzz(3,5,"fizz","buzz",30)
+            list = fizzBuzz(firstNumber,secondNumber,firstText,secondText,limit)
         )
     }
 
