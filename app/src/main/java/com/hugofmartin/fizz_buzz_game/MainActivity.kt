@@ -8,6 +8,18 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.hugofmartin.fizz_buzz_game.domain.use_case.FizzBuzz
+import com.hugofmartin.fizz_buzz_game.ui.presentation.fizz_buzz_screen.FizzBuzzScreen
+import com.hugofmartin.fizz_buzz_game.ui.presentation.fizz_buzz_screen.FizzBuzzViewModel
+import com.hugofmartin.fizz_buzz_game.ui.presentation.input_screen.InputScreen
+import com.hugofmartin.fizz_buzz_game.ui.presentation.input_screen.InputState
+import com.hugofmartin.fizz_buzz_game.ui.presentation.input_screen.InputViewModel
+import com.hugofmartin.fizz_buzz_game.ui.presentation.util.Screen
 import com.hugofmartin.fizz_buzz_game.ui.theme.FizzBuzzGameTheme
 
 class MainActivity : ComponentActivity() {
@@ -15,24 +27,64 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FizzBuzzGameTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Android")
+                Surface(
+                    color = MaterialTheme.colors.background
+                ) {
+                    val navController = rememberNavController()
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screen.InputScreen.route
+                    ) {
+                        composable(route = Screen.InputScreen.route) {
+                            InputScreen(
+                                InputViewModel(),
+                                navController = navController,
+                            )
+                        }
+                        composable(
+                            route = Screen.FizzBuzzScreen.route,
+                            arguments = listOf(
+                                navArgument(
+                                    name = "firstNumberInput"
+                                ) {
+                                    type = NavType.IntType
+                                    defaultValue = -1
+                                },
+                                navArgument(
+                                    name = "secondNumberInput"
+                                ) {
+                                    type = NavType.IntType
+                                    defaultValue = -1
+                                },
+                                navArgument(
+                                    name = "firstTextInput"
+                                ) {
+                                    type = NavType.StringType
+                                    defaultValue = ""
+                                },
+                                navArgument(
+                                    name = "secondTextInput"
+                                ) {
+                                    type = NavType.StringType
+                                    defaultValue = ""
+                                },
+                                navArgument(
+                                    name = "limitInput"
+                                ) {
+                                    type = NavType.IntType
+                                    defaultValue = -1
+                                }
+                            )
+                        ) {
+                            FizzBuzzScreen(
+                                FizzBuzzViewModel(FizzBuzz()),
+                                navController = navController
+                            )
+                        }
+                    }
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    FizzBuzzGameTheme {
-        Greeting("Android")
-    }
-}
