@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.hugofmartin.fizz_buzz_game.domain.use_case.FizzBuzz
 
 class FizzBuzzViewModel(
-    fizzBuzz: FizzBuzz
+    fizzBuzz: FizzBuzz = FizzBuzz()
 ): ViewModel() {
 
     private val _state = mutableStateOf(FizzBuzzState())

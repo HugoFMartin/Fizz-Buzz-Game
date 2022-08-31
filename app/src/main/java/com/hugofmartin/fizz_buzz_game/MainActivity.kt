@@ -8,6 +8,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -37,7 +38,7 @@ class MainActivity : ComponentActivity() {
                     ) {
                         composable(route = Screen.InputScreen.route) {
                             InputScreen(
-                                InputViewModel(),
+                                viewModel = viewModel(),
                                 navController = navController,
                             )
                         }
@@ -82,7 +83,7 @@ class MainActivity : ComponentActivity() {
                             )
                         ) { backStackEntry ->
                             FizzBuzzScreen(
-                                FizzBuzzViewModel(FizzBuzz()),
+                                viewModel(),
                                 navController = navController,
                                 firstNumber = backStackEntry.arguments?.getInt("firstNumberInput"),
                                 secondNumber = backStackEntry.arguments?.getInt("secondNumberInput"),
