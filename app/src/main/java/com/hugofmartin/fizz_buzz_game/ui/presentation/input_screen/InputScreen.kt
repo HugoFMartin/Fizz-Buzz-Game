@@ -1,7 +1,9 @@
 package com.hugofmartin.fizz_buzz_game.ui.presentation.input_screen
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -39,7 +41,9 @@ fun InputScreen(
                 .padding(16.dp)
         ) {
             Column(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 FormInput(
@@ -87,7 +91,6 @@ fun InputScreen(
                     keyboardType = KeyboardType.Number,
                     modifier = Modifier
                 )
-                Spacer(modifier = Modifier.weight(1f))
                 Button(
                     modifier = Modifier
                         .fillMaxWidth()
