@@ -3,6 +3,7 @@ package com.hugofmartin.fizz_buzz_game.ui.presentation.fizz_buzz_screen
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -42,7 +43,9 @@ fun FizzBuzzScreen(
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.h3
         )
-        LazyColumn() {
+        LazyColumn(
+            Modifier.weight(1f)
+        ) {
             items(
                 state.value.list
             ) {
@@ -51,6 +54,18 @@ fun FizzBuzzScreen(
                     it
                 )
             }
+        }
+        Button(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            onClick = {
+                navController.popBackStack()
+            }
+        ) {
+            Text(
+                text = "Recommencer"
+            )
         }
 
     }
