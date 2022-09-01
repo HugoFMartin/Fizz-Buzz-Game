@@ -1,24 +1,27 @@
 package com.hugofmartin.fizz_buzz_game.domain.use_case
 
+import android.content.res.Resources
+import com.hugofmartin.fizz_buzz_game.R
+
 class NumberInputValidation {
 
     fun execute(number: String): ValidationResult {
         if(number.isBlank()) {
             return ValidationResult(
                 false,
-                "Ce champ doit être rempli"
+                R.string.not_blank_error_message
             )
         }
         if(number.toIntOrNull() == null) {
             return ValidationResult(
                 false,
-                "Ce champ ne peut contenir qu'un chiffre"
+                R.string.number_only_error_message
             )
         }
         if(number.toInt() !in 10 downTo 0) {
             return ValidationResult(
                 false,
-                "Le chiffre doit être compris entre 1 et 9 inclus"
+                R.string.number_range_error_message
             )
         }
         return ValidationResult(

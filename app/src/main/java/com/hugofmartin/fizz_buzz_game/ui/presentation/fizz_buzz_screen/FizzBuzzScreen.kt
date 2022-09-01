@@ -8,10 +8,12 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.hugofmartin.fizz_buzz_game.R
 
 @Composable
 fun FizzBuzzScreen(
@@ -38,7 +40,7 @@ fun FizzBuzzScreen(
             modifier= Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
-            text = "Résultat",
+            text = stringResource(id = R.string.fizzbuzz_screen_title),
             color = MaterialTheme.colors.primary,
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.h3
@@ -64,7 +66,7 @@ fun FizzBuzzScreen(
             }
         ) {
             Text(
-                text = "Recommencer"
+                text = stringResource(id = R.string.retry)
             )
         }
 

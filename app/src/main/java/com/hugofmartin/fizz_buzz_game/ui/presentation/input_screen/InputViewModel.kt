@@ -52,7 +52,7 @@ class InputViewModel(
         val secondTextResult = textInputValidation.execute(_state.value.secondText)
         val limitResult = limitInputValidation.execute(_state.value.limit)
 
-        // Check if any errors have occured
+        // Check if any error has occurred
         val hasError = listOf(
             firstNumberResult,
             secondNumberResult,
@@ -64,11 +64,11 @@ class InputViewModel(
         // Update state
         if (hasError) {
             _state.value = _state.value.copy(
-                firstNumberErrorMessage = firstNumberResult.errorMessage,
-                secondNumberErrorMessage = secondNumberResult.errorMessage,
-                firstTextErrorMessage = firstTextResult.errorMessage,
-                secondTextErrorMessage = secondTextResult.errorMessage,
-                limitErrorMessage = limitResult.errorMessage
+                firstNumberErrorMessageResourceId = firstNumberResult.errorRMessageResourceId,
+                secondNumberErrorMessageResourceId = secondNumberResult.errorRMessageResourceId,
+                firstTextErrorMessageResourceId = firstTextResult.errorRMessageResourceId,
+                secondTextErrorMessageResourceId = secondTextResult.errorRMessageResourceId,
+                limitErrorMessageResourceId = limitResult.errorRMessageResourceId
             )
         }
 

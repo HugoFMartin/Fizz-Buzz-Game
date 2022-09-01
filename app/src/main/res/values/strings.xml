@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">Fizz-Buzz-Game</string>
+
+    <!--  Input Screen  -->
+    <string name="input_screen_title">FizzBuzz Game</string>
+    <string name="first_number_label">1er chiffre</string>
+    <string name="second_number_label">2ème chiffre</string>
+    <string name="first_text_label">1er mot</string>
+    <string name="second_text_label">2ème mot</string>
+    <string name="limit_label">Limite</string>
+    <string name="validate">Valider</string>
+
+    <!-- FizzBuzz Screen   -->
+    <string name="fizzbuzz_screen_title">Résultat</string>
+    <string name="retry">Recommencer</string>
+
+    <!--  Error message  -->
+    <string name="not_blank_error_message">Ce champ doit être rempli</string>
+    <string name="number_only_error_message">Ce champ ne peut contenir qu\'un chiffre</string>
+    <string name="limit_range_error_message">La limite doit être supérieur à 10</string>
+    <string name="number_range_error_message">Le chiffre doit être compris entre 1 et 9 inclus</string>
+    <string name="text_error_message">Ce champ doit être composé d\'un seul mot, sans espace</string>
 </resources>

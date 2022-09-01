@@ -10,12 +10,14 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.hugofmartin.fizz_buzz_game.ui.presentation.util.Screen
+import com.hugofmartin.fizz_buzz_game.R
 
 @Composable
 fun InputScreen(
@@ -30,7 +32,7 @@ fun InputScreen(
             modifier= Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
-            text = "FizzBuzz Game",
+            text = stringResource(id = R.string.input_screen_title),
             color = MaterialTheme.colors.primary,
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.h3
@@ -51,9 +53,9 @@ fun InputScreen(
                     onValueChange = {
                         viewModel.onEvent(InputEvent.OnFirstNumberChanged(it))
                     },
-                    title = "1er chiffre",
+                    title = stringResource(id = R.string.first_number_label),
                     keyboardType = KeyboardType.Number,
-                    errorMessage = state.value.firstNumberErrorMessage,
+                    errorMessage = state.value.firstNumberErrorMessageResourceId,
                     modifier = Modifier
                 )
                 FormInput(
@@ -61,9 +63,9 @@ fun InputScreen(
                     onValueChange = {
                         viewModel.onEvent(InputEvent.OnSecondNumberChanged(it))
                     },
-                    title = "2ème chiffre",
+                    title = stringResource(id = R.string.second_number_label),
                     keyboardType = KeyboardType.Number,
-                    errorMessage = state.value.secondNumberErrorMessage,
+                    errorMessage = state.value.secondNumberErrorMessageResourceId,
                     modifier = Modifier
                 )
                 FormInput(
@@ -71,9 +73,9 @@ fun InputScreen(
                     onValueChange = {
                         viewModel.onEvent(InputEvent.OnFirstTextChanged(it))
                     },
-                    title = "1er mot",
+                    title = stringResource(id = R.string.first_text_label),
                     keyboardType = KeyboardType.Text,
-                    errorMessage = state.value.firstTextErrorMessage,
+                    errorMessage = state.value.firstTextErrorMessageResourceId,
                     modifier = Modifier
                 )
                 FormInput(
@@ -81,9 +83,9 @@ fun InputScreen(
                     onValueChange = {
                         viewModel.onEvent(InputEvent.OnSecondTextChanged(it))
                     },
-                    title = "1er mot",
+                    title = stringResource(id = R.string.second_text_label),
                     keyboardType = KeyboardType.Text,
-                    errorMessage = state.value.secondTextErrorMessage,
+                    errorMessage = state.value.secondTextErrorMessageResourceId,
                     modifier = Modifier
                 )
                 FormInput(
@@ -91,9 +93,9 @@ fun InputScreen(
                     onValueChange = {
                         viewModel.onEvent(InputEvent.OnLimitChanged(it))
                     },
-                    title = "Limite",
+                    title = stringResource(id = R.string.limit_label),
                     keyboardType = KeyboardType.Number,
-                    errorMessage = state.value.limitErrorMessage,
+                    errorMessage = state.value.limitErrorMessageResourceId,
                     modifier = Modifier
                 )
                 Button(
@@ -114,7 +116,7 @@ fun InputScreen(
                         }
                     }
                 ) {
-                    Text(text = "Valider")
+                    Text(text = stringResource(id = R.string.validate))
                 }
             }
         }
@@ -127,7 +129,7 @@ fun FormInput(
     onValueChange: (String) -> Unit,
     title: String,
     keyboardType: KeyboardType,
-    errorMessage: String?,
+    errorMessage: Int?,
     modifier: Modifier
 ) {
     Text(
@@ -145,7 +147,7 @@ fun FormInput(
     if (errorMessage != null) {
         Text(
             modifier = modifier.padding(bottom = 8.dp),
-            text = errorMessage,
+            text = stringResource(id = errorMessage),
             color = MaterialTheme.colors.error,
             fontSize = 14.sp,
         )
