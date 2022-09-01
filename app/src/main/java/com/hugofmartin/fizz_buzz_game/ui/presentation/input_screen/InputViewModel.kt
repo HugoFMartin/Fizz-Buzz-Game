@@ -3,8 +3,15 @@ package com.hugofmartin.fizz_buzz_game.ui.presentation.input_screen
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.hugofmartin.fizz_buzz_game.domain.use_case.LimitInputValidation
+import com.hugofmartin.fizz_buzz_game.domain.use_case.NumberInputValidation
+import com.hugofmartin.fizz_buzz_game.domain.use_case.TextInputValidation
 
-class InputViewModel : ViewModel(){
+class InputViewModel(
+    private val numberInputValidation: NumberInputValidation = NumberInputValidation(),
+    private val textInputValidation: TextInputValidation = TextInputValidation(),
+    private val limitInputValidation: LimitInputValidation = LimitInputValidation()
+): ViewModel(){
     private val _state = mutableStateOf(InputState())
     val state: State<InputState> = _state
 
@@ -36,5 +43,35 @@ class InputViewModel : ViewModel(){
                 )
             }
         }
+    }
+
+    fun hasInputError(): Boolean {
+        val firstNumberResult = numberInputValidation.execute(_state.value.firstNumber)
+        val secondNumberResult = numberInputValidation.execute(_state.value.secondNumber)
+        val firstTextResult = textInputValidation.execute(_state.value.firstText)
+        val secondTextResult = textInputValidation.execute(_state.value.secondText)
+        val limitResult = limitInputValidation.execute(_state.value.limit)
+
+        // Check if any errors have occured
+        val hasError = listOf(
+            firstNumberResult,
+            secondNumberResult,
+            firstTextResult,
+            secondTextResult,
+            limitResult
+        ).any { !it.isValid}
+
+        // Update state
+        if (hasError) {
+            _state.value = _state.value.copy(
+                firstNumberErrorMessage = firstNumberResult.errorMessage,
+                secondNumberErrorMessage = secondNumberResult.errorMessage,
+                firstTextErrorMessage = firstTextResult.errorMessage,
+                secondTextErrorMessage = secondTextResult.errorMessage,
+                limitErrorMessage = limitResult.errorMessage
+            )
+        }
+
+        return hasError
     }
 }

@@ -4,8 +4,13 @@ import java.io.Serializable
 
 data class InputState (
     val firstNumber: String = "3",
+    val firstNumberErrorMessage: String? = null,
     val secondNumber: String = "5" ,
+    val secondNumberErrorMessage: String? = null,
     val firstText: String = "Fizz",
+    val firstTextErrorMessage: String? = null,
     val secondText: String = "Buzz",
-    val limit: String = "30"
+    val secondTextErrorMessage: String? = null,
+    val limit: String = "30",
+    val limitErrorMessage: String? = null
 ): Serializable

@@ -53,6 +53,7 @@ fun InputScreen(
                     },
                     title = "1er chiffre",
                     keyboardType = KeyboardType.Number,
+                    errorMessage = state.value.firstNumberErrorMessage,
                     modifier = Modifier
                 )
                 FormInput(
@@ -62,6 +63,7 @@ fun InputScreen(
                     },
                     title = "2ème chiffre",
                     keyboardType = KeyboardType.Number,
+                    errorMessage = state.value.secondNumberErrorMessage,
                     modifier = Modifier
                 )
                 FormInput(
@@ -71,6 +73,7 @@ fun InputScreen(
                     },
                     title = "1er mot",
                     keyboardType = KeyboardType.Text,
+                    errorMessage = state.value.firstTextErrorMessage,
                     modifier = Modifier
                 )
                 FormInput(
@@ -80,6 +83,7 @@ fun InputScreen(
                     },
                     title = "1er mot",
                     keyboardType = KeyboardType.Text,
+                    errorMessage = state.value.secondTextErrorMessage,
                     modifier = Modifier
                 )
                 FormInput(
@@ -89,22 +93,25 @@ fun InputScreen(
                     },
                     title = "Limite",
                     keyboardType = KeyboardType.Number,
+                    errorMessage = state.value.limitErrorMessage,
                     modifier = Modifier
                 )
                 Button(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 16.dp),
-                    // Navigate to the FizzBuzz screen and cast value to int, we sure they can't be null or ""
+                    // Navigate to the FizzBuzz screen and cast value to int, we sure input can't be null
                     onClick = {
-                        navController.navigate(
-                            Screen.FizzBuzzScreen.route +
-                                    "?firstNumber=${state.value.firstNumber.toInt()}&" +
-                                    "secondNumber=${state.value.secondNumber.toInt()}&" +
-                                    "firstText=${state.value.firstText}&" +
-                                    "secondText=${state.value.secondText}&" +
-                                    "limit=${state.value.limit.toInt()}",
-                        )
+                        if (!viewModel.hasInputError()) {
+                            navController.navigate(
+                                Screen.FizzBuzzScreen.route +
+                                        "?firstNumber=${state.value.firstNumber.toInt()}&" +
+                                        "secondNumber=${state.value.secondNumber.toInt()}&" +
+                                        "firstText=${state.value.firstText}&" +
+                                        "secondText=${state.value.secondText}&" +
+                                        "limit=${state.value.limit.toInt()}",
+                            )
+                        }
                     }
                 ) {
                     Text(text = "Valider")
@@ -120,6 +127,7 @@ fun FormInput(
     onValueChange: (String) -> Unit,
     title: String,
     keyboardType: KeyboardType,
+    errorMessage: String?,
     modifier: Modifier
 ) {
     Text(
@@ -128,9 +136,18 @@ fun FormInput(
         color = MaterialTheme.colors.primary
     )
     TextField(
-        modifier = modifier.padding(top = 2.dp,bottom = 8.dp),
+        modifier = modifier.padding(top = 2.dp,bottom = 2.dp),
         value = value,
         onValueChange = onValueChange,
-        keyboardOptions = KeyboardOptions(keyboardType = keyboardType)
+        keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
+        isError = errorMessage != null
     )
+    if (errorMessage != null) {
+        Text(
+            modifier = modifier.padding(bottom = 8.dp),
+            text = errorMessage,
+            color = MaterialTheme.colors.error,
+            fontSize = 14.sp,
+        )
+    }
 }
