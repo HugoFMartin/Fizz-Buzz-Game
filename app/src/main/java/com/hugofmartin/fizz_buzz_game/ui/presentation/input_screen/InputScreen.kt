@@ -9,6 +9,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -26,6 +27,24 @@ fun InputScreen(
 ){
 
     val state = viewModel.state
+
+    LaunchedEffect(key1 = true) {
+        viewModel.event.collect { event ->
+            when (event) {
+                is InputEvent.InputsValidated -> {
+                    navController.navigate(
+                        Screen.FizzBuzzScreen.route +
+                                "?firstNumber=${state.value.firstNumber.toInt()}&" +
+                                "secondNumber=${state.value.secondNumber.toInt()}&" +
+                                "firstText=${state.value.firstText}&" +
+                                "secondText=${state.value.secondText}&" +
+                                "limit=${state.value.limit.toInt()}",
+                    )
+                }
+            }
+        }
+    }
+
 
     Column {
         Text(
@@ -51,7 +70,7 @@ fun InputScreen(
                 FormInput(
                     value = state.value.firstNumber,
                     onValueChange = {
-                        viewModel.onEvent(InputEvent.OnFirstNumberChanged(it))
+                        viewModel.onEvent(InputUIEvent.OnFirstNumberChanged(it))
                     },
                     title = stringResource(id = R.string.first_number_label),
                     keyboardType = KeyboardType.Number,
@@ -61,7 +80,7 @@ fun InputScreen(
                 FormInput(
                     value = state.value.secondNumber,
                     onValueChange = {
-                        viewModel.onEvent(InputEvent.OnSecondNumberChanged(it))
+                        viewModel.onEvent(InputUIEvent.OnSecondNumberChanged(it))
                     },
                     title = stringResource(id = R.string.second_number_label),
                     keyboardType = KeyboardType.Number,
@@ -71,7 +90,7 @@ fun InputScreen(
                 FormInput(
                     value = state.value.firstText,
                     onValueChange = {
-                        viewModel.onEvent(InputEvent.OnFirstTextChanged(it))
+                        viewModel.onEvent(InputUIEvent.OnFirstTextChanged(it))
                     },
                     title = stringResource(id = R.string.first_text_label),
                     keyboardType = KeyboardType.Text,
@@ -81,7 +100,7 @@ fun InputScreen(
                 FormInput(
                     value = state.value.secondText,
                     onValueChange = {
-                        viewModel.onEvent(InputEvent.OnSecondTextChanged(it))
+                        viewModel.onEvent(InputUIEvent.OnSecondTextChanged(it))
                     },
                     title = stringResource(id = R.string.second_text_label),
                     keyboardType = KeyboardType.Text,
@@ -91,7 +110,7 @@ fun InputScreen(
                 FormInput(
                     value = state.value.limit,
                     onValueChange = {
-                        viewModel.onEvent(InputEvent.OnLimitChanged(it))
+                        viewModel.onEvent(InputUIEvent.OnLimitChanged(it))
                     },
                     title = stringResource(id = R.string.limit_label),
                     keyboardType = KeyboardType.Number,
@@ -104,16 +123,7 @@ fun InputScreen(
                         .padding(bottom = 16.dp),
                     // Navigate to the FizzBuzz screen and cast value to int, we sure input can't be null
                     onClick = {
-                        if (!viewModel.hasInputError()) {
-                            navController.navigate(
-                                Screen.FizzBuzzScreen.route +
-                                        "?firstNumber=${state.value.firstNumber.toInt()}&" +
-                                        "secondNumber=${state.value.secondNumber.toInt()}&" +
-                                        "firstText=${state.value.firstText}&" +
-                                        "secondText=${state.value.secondText}&" +
-                                        "limit=${state.value.limit.toInt()}",
-                            )
-                        }
+                        viewModel.onEvent(InputUIEvent.OnValidateInputs)
                     }
                 ) {
                     Text(text = stringResource(id = R.string.validate))

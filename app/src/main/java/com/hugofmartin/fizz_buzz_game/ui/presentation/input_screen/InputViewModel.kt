@@ -3,9 +3,12 @@ package com.hugofmartin.fizz_buzz_game.ui.presentation.input_screen
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.hugofmartin.fizz_buzz_game.domain.use_case.LimitInputValidation
 import com.hugofmartin.fizz_buzz_game.domain.use_case.NumberInputValidation
 import com.hugofmartin.fizz_buzz_game.domain.use_case.TextInputValidation
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.launch
 
 class InputViewModel(
     private val numberInputValidation: NumberInputValidation = NumberInputValidation(),
@@ -15,42 +18,47 @@ class InputViewModel(
     private val _state = mutableStateOf(InputState())
     val state: State<InputState> = _state
 
-    fun onEvent(ev: InputEvent) {
+    val event = MutableSharedFlow<InputEvent>()
+
+    fun onEvent(ev: InputUIEvent) {
         when(ev) {
-            is InputEvent.OnFirstNumberChanged -> {
+            is InputUIEvent.OnFirstNumberChanged -> {
                 _state.value = _state.value.copy(
                     firstNumber = ev.value,
                     firstNumberErrorMessageResourceId = null
                     )
             }
-            is InputEvent.OnSecondNumberChanged -> {
+            is InputUIEvent.OnSecondNumberChanged -> {
                 _state.value = _state.value.copy(
                     secondNumber = ev.value,
                     secondNumberErrorMessageResourceId = null
                 )
             }
-            is InputEvent.OnFirstTextChanged -> {
+            is InputUIEvent.OnFirstTextChanged -> {
                 _state.value = _state.value.copy(
                     firstText = ev.value,
                     firstTextErrorMessageResourceId = null
                 )
             }
-            is InputEvent.OnSecondTextChanged -> {
+            is InputUIEvent.OnSecondTextChanged -> {
                 _state.value = _state.value.copy(
                     secondText = ev.value,
                     secondTextErrorMessageResourceId = null
                 )
             }
-            is InputEvent.OnLimitChanged -> {
+            is InputUIEvent.OnLimitChanged -> {
                 _state.value = _state.value.copy(
                     limit = ev.value,
                     limitErrorMessageResourceId = null
                 )
             }
+            is InputUIEvent.OnValidateInputs -> {
+                validateInputs()
+            }
         }
     }
 
-    fun hasInputError(): Boolean {
+    private fun validateInputs() {
         val firstNumberResult = numberInputValidation.execute(_state.value.firstNumber)
         val secondNumberResult = numberInputValidation.execute(_state.value.secondNumber)
         val firstTextResult = textInputValidation.execute(_state.value.firstText)
@@ -75,8 +83,10 @@ class InputViewModel(
                 secondTextErrorMessageResourceId = secondTextResult.errorRMessageResourceId,
                 limitErrorMessageResourceId = limitResult.errorRMessageResourceId
             )
+        } else {
+            viewModelScope.launch {
+                event.emit(InputEvent.InputsValidated)
+            }
         }
-
-        return hasError
     }
 }
