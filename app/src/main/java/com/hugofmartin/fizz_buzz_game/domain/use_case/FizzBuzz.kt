@@ -1,19 +1,20 @@
 package com.hugofmartin.fizz_buzz_game.domain.use_case
 
+import com.hugofmartin.fizz_buzz_game.data.model.Inputs
 import java.util.*
 
 class FizzBuzz {
 
-    operator fun invoke(firstNumber: Int, secondNumber: Int, firstText: String, secondText: String, limit: Int): ArrayList<String> {
+    operator fun invoke(inputs: Inputs): ArrayList<String> {
         val resArray = ArrayList<String>()
 
-        for (i in 1..limit) {
-            if (i % firstNumber == 0 && i % secondNumber == 0) {
-                resArray.add(firstText + secondText)
-            } else if (i % firstNumber == 0) {
-                resArray.add(firstText)
-            } else if (i % secondNumber == 0) {
-                resArray.add(secondText)
+        for (i in 1..inputs.limit) {
+            if (i % inputs.firstNumber == 0 && i % inputs.secondNumber == 0) {
+                resArray.add(inputs.firstText + inputs.secondText)
+            } else if (i % inputs.firstNumber == 0) {
+                resArray.add(inputs.firstText)
+            } else if (i % inputs.secondNumber == 0) {
+                resArray.add(inputs.secondText)
             } else {
                 resArray.add(i.toString())
             }

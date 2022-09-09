@@ -5,21 +5,15 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.hugofmartin.fizz_buzz_game.domain.use_case.FizzBuzz
+import com.hugofmartin.fizz_buzz_game.data.model.Inputs
 import com.hugofmartin.fizz_buzz_game.ui.presentation.fizz_buzz_screen.FizzBuzzScreen
-import com.hugofmartin.fizz_buzz_game.ui.presentation.fizz_buzz_screen.FizzBuzzViewModel
 import com.hugofmartin.fizz_buzz_game.ui.presentation.input_screen.InputScreen
-import com.hugofmartin.fizz_buzz_game.ui.presentation.input_screen.InputState
-import com.hugofmartin.fizz_buzz_game.ui.presentation.input_screen.InputViewModel
 import com.hugofmartin.fizz_buzz_game.ui.presentation.util.Screen
 import com.hugofmartin.fizz_buzz_game.ui.theme.FizzBuzzGameTheme
 
@@ -85,11 +79,13 @@ class MainActivity : ComponentActivity() {
                             FizzBuzzScreen(
                                 viewModel(),
                                 navController = navController,
-                                firstNumber = backStackEntry.arguments?.getInt("firstNumberInput"),
-                                secondNumber = backStackEntry.arguments?.getInt("secondNumberInput"),
-                                firstText = backStackEntry.arguments?.getString("firstTextInput"),
-                                secondText = backStackEntry.arguments?.getString("secondTextInput"),
-                                limit = backStackEntry.arguments?.getInt("limitInput")
+                                inputs = Inputs(
+                                    backStackEntry.arguments?.getInt("firstNumberInput")!!,
+                                    backStackEntry.arguments?.getInt("secondNumberInput")!!,
+                                    backStackEntry.arguments?.getString("firstTextInput")!!,
+                                    backStackEntry.arguments?.getString("secondTextInput")!!,
+                                    backStackEntry.arguments?.getInt("limitInput")!!
+                                )
                             )
                         }
                     }

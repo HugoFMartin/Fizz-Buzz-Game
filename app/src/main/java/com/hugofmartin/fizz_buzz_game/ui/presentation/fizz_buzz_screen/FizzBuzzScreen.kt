@@ -1,5 +1,6 @@
 package com.hugofmartin.fizz_buzz_game.ui.presentation.fizz_buzz_screen
 
+import android.os.Bundle
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -14,26 +15,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.hugofmartin.fizz_buzz_game.R
+import com.hugofmartin.fizz_buzz_game.data.model.Inputs
 
 @Composable
 fun FizzBuzzScreen(
     viewModel: FizzBuzzViewModel,
     navController: NavController,
-    firstNumber: Int?,
-    secondNumber: Int?,
-    firstText: String?,
-    secondText: String?,
-    limit: Int?,
+    inputs: Inputs
     ) {
     val state = viewModel.state
 
-    viewModel.executeFizzBuzz(
-        firstNumber!!,
-        secondNumber!!,
-        firstText!!,
-        secondText!!,
-        limit!!
-    )
+    viewModel.executeFizzBuzz(inputs)
 
     Column(modifier = Modifier.fillMaxSize()) {
         Text(
