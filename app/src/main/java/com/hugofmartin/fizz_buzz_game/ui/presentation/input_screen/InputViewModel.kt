@@ -19,27 +19,32 @@ class InputViewModel(
         when(ev) {
             is InputEvent.OnFirstNumberChanged -> {
                 _state.value = _state.value.copy(
-                    firstNumber = ev.value
-                )
+                    firstNumber = ev.value,
+                    firstNumberErrorMessageResourceId = null
+                    )
             }
             is InputEvent.OnSecondNumberChanged -> {
                 _state.value = _state.value.copy(
-                    secondNumber = ev.value
+                    secondNumber = ev.value,
+                    secondNumberErrorMessageResourceId = null
                 )
             }
             is InputEvent.OnFirstTextChanged -> {
                 _state.value = _state.value.copy(
-                    firstText = ev.value
+                    firstText = ev.value,
+                    firstTextErrorMessageResourceId = null
                 )
             }
             is InputEvent.OnSecondTextChanged -> {
                 _state.value = _state.value.copy(
-                    secondText = ev.value
+                    secondText = ev.value,
+                    secondTextErrorMessageResourceId = null
                 )
             }
             is InputEvent.OnLimitChanged -> {
                 _state.value = _state.value.copy(
-                    limit = ev.value
+                    limit = ev.value,
+                    limitErrorMessageResourceId = null
                 )
             }
         }
