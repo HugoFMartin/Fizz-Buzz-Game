@@ -5,8 +5,8 @@ import java.util.*
 
 class FizzBuzz {
 
-    operator fun invoke(inputs: Inputs): ArrayList<String> {
-        val resArray = ArrayList<String>()
+    operator fun invoke(inputs: Inputs): MutableList<String> {
+        val resArray = mutableListOf<String>()
 
         for (i in 1..inputs.limit) {
             if (i % inputs.firstNumber == 0 && i % inputs.secondNumber == 0) {
